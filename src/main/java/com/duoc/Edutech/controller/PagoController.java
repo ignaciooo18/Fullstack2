@@ -1,12 +1,12 @@
-package com.duoc.db_hospital_vm.controller;
+package com.duoc.Edutech.controller;
 
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.duoc.db_hospital_vm.model.Pago;
-import com.duoc.db_hospital_vm.repository.InscripcionRepository;
-import com.duoc.db_hospital_vm.services.PagoServices;
+import com.duoc.Edutech.model.Pago;
+import com.duoc.Edutech.repository.InscripcionRepository;
+import com.duoc.Edutech.services.PagoServices;
 
 @RestController
 @RequestMapping("/api/pagoEdutech")
@@ -30,7 +30,17 @@ public class PagoController {
                     return ResponseEntity.notFound().build();
                 });
     }
-
+    @GetMapping("/eliminarpago/{idpago}")
+    public ResponseEntity<?> eliminarpago(@PathVariable Integer idpago) {
+        return pagoServices.findById(idpago)
+                .map(pago -> {
+                    pagoServices.deleteById(idpago);
+                    return ResponseEntity.ok("Pago eliminado con éxito");
+                })
+                .orElseGet(() -> {
+                    return ResponseEntity.notFound().build();
+                });
+    }
     @PostMapping("/pagar/{idInscripcion}")
     public ResponseEntity<?> pagarcurso(@PathVariable Integer idInscripcion, @RequestBody Pago nuevoPago) {
         return inscripcionRepository.findById(idInscripcion)

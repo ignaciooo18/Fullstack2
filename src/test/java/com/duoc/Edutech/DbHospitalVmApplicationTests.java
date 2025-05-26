@@ -1,4 +1,4 @@
-package com.duoc.db_hospital_vm;
+package com.duoc.Edutech;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
